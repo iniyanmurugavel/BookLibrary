@@ -22,6 +22,7 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
+            delay(3000L)
             _isLoggedIn.emit(localRepository.isUserLoggedIn() ?: false)
         }
     }

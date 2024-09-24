@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.book.library.presentation.authentication.AuthenticationActivity
+import com.example.book.library.presentation.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +20,11 @@ class MainActivity : ComponentActivity() {
         installSplashScreen().apply {
             setKeepOnScreenCondition {
                 when (viewmodel.isLoggedIn.value) {
-                    true -> true
+                    true -> {
+                        startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+                        finish()
+                        false
+                    }
                     false -> {
                         startActivity(Intent(this@MainActivity, AuthenticationActivity::class.java))
                         finish()
