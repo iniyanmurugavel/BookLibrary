@@ -2,7 +2,9 @@ package com.example.book.library.di
 
 import android.content.Context
 import com.example.book.library.data.local.LocalRepositoryImpl
+import com.example.book.library.data.remote.RemoteRepositoryImpl
 import com.example.book.library.domain.ILocalRepository
+import com.example.book.library.domain.IRemoteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,5 +22,12 @@ object DataModule {
         @ApplicationContext context: Context
     ): ILocalRepository {
         return LocalRepositoryImpl(context)
+    }
+
+    @Provides
+    @Singleton
+    fun providesIRemoteRepository(
+    ): IRemoteRepository {
+        return RemoteRepositoryImpl()
     }
 }
