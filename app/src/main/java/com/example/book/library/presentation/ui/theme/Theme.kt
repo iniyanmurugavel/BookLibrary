@@ -1,4 +1,4 @@
-package com.example.book.library.ui.theme
+package com.example.book.library.presentation.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
