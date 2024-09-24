@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.demo.example.myapplication"
+    namespace = "com.example.book.library"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.demo.example.myapplication"
+        applicationId = "com.example.book.library"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
