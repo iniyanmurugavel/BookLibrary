@@ -2,6 +2,7 @@ package com.example.book.library.presentation.authentication.signUp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.book.library.data.UserEntity
 import com.example.book.library.domain.ILocalRepository
 import com.example.book.library.domain.IRemoteRepository
 import com.example.book.library.domain.model.Country
@@ -30,9 +31,10 @@ class SignUpViewModel @Inject constructor(
         fetchCountries()
     }
 
-    fun setUserLoggedIn() {
+    fun setUserLoggedIn(userEntity: UserEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             localRepository.setUserLoggedIn(true)
+            localRepository.setUserData(userEntity)
         }
     }
 

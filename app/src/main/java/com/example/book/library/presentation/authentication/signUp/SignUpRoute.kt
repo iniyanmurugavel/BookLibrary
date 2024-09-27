@@ -39,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.book.library.data.UserEntity
 import com.example.book.library.domain.model.Country
 import com.example.book.library.presentation.authentication.common.validatePassword
 import kotlinx.coroutines.delay
@@ -105,7 +106,7 @@ fun SignUpScreen(
             )
             CountryDropDown(Modifier.padding(vertical = 6.dp), itemPosition, countries)
             Button(onClick = {
-                viewModel.setUserLoggedIn()
+                viewModel.setUserLoggedIn(UserEntity(mail = email,password,country))
                 navigateToHome()
             }, content = {
                 Text(text = "Register!")
@@ -143,7 +144,7 @@ fun CountryDropDown(
                 isDropDownExpanded.value = true
             }
         ) {
-            Text(text = countries[itemPosition.value].country)
+            Text(text = countries[itemPosition.intValue].country)
             Image(
                 imageVector = Icons.Filled.ArrowDropDown,
                 contentDescription = "DropDown Icon"
@@ -160,7 +161,7 @@ fun CountryDropDown(
                 },
                     onClick = {
                         isDropDownExpanded.value = false
-                        itemPosition.value = index
+                        itemPosition.intValue = index
                     })
             }
         }
