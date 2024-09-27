@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.book.library.presentation.authentication.login.LoginScreen
 import com.example.book.library.presentation.authentication.signUp.SignUpScreen
 import kotlinx.serialization.Serializable
 
@@ -15,10 +16,14 @@ fun AuthenticationNavGraph(
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = AuthenticationScreens.SignUp
+        startDestination = AuthenticationScreens.Login
     ) {
         composable<AuthenticationScreens.Login> {
-
+            LoginScreen(navigateToRegistration = {
+                navController.navigate(AuthenticationScreens.SignUp)
+            }, navigateToHome = {
+                navigateToHome()
+            })
         }
 
         composable<AuthenticationScreens.SignUp> {
