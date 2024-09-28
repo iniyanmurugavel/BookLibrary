@@ -70,7 +70,7 @@ fun SignUpScreen(
             mutableIntStateOf(if (index == -1) 0 else index)
         }
         Column(
-            modifier = modifier,
+            modifier = modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {

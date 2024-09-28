@@ -3,8 +3,11 @@ package com.example.book.library.data.remote
 import com.example.book.library.data.dto.DtoMapper.toCountryDomain
 import com.example.book.library.data.dto.DtoMapper.toCountryListDomain
 import com.example.book.library.domain.IRemoteRepository
+import com.example.book.library.domain.model.BookListDataItem
 import com.example.book.library.domain.model.Country
 import com.example.book.library.network.ApiClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class RemoteRepositoryImpl : IRemoteRepository {
 
@@ -25,6 +28,12 @@ class RemoteRepositoryImpl : IRemoteRepository {
             response.body()?.toCountryDomain()
         } else {
             null
+        }
+    }
+
+    override suspend fun getBookList(): List<BookListDataItem> {
+        return withContext(Dispatchers.IO){
+            service.getBookList().body().orEmpty()
         }
     }
 }

@@ -84,4 +84,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.datastore.preferences)
+    implementation("com.google.accompanist:accompanist-pager:0.13.0")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.13.0")
+    implementation(libs.coil)
+
 }
