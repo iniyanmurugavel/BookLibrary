@@ -1,11 +1,6 @@
 package com.example.book.library.domain
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.book.library.domain.model.BookListDataItem
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.Calendar
 import javax.inject.Inject
 
@@ -26,7 +21,7 @@ class FetchBooksListUsecase @Inject constructor(private val iRemoteRepository: I
 
     private fun getYearFromEpoch(publishedChapterDate: Int): Int {
         val calendar = Calendar.getInstance()
-        calendar.timeInMillis = publishedChapterDate.toLong() * 1000 // Convert seconds to milliseconds
+        calendar.timeInMillis = publishedChapterDate.toLong() * 1000
         return calendar.get(Calendar.YEAR)
     }
 
