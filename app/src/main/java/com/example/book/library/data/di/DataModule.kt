@@ -1,4 +1,4 @@
-package com.example.book.library.di
+package com.example.book.library.data.di
 
 import android.content.Context
 import com.example.book.library.data.local.LocalRepositoryImpl
@@ -11,7 +11,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.serialization.Serializable
 import retrofit2.Retrofit
 import javax.inject.Singleton
 

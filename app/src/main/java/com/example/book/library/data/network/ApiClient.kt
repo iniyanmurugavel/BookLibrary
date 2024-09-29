@@ -1,6 +1,5 @@
-package com.example.book.library.network
+package com.example.book.library.data.network
 
-import com.example.book.library.data.remote.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
