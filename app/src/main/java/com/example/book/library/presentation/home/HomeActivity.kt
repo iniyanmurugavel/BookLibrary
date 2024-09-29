@@ -24,30 +24,16 @@ import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
-    private val viewModel : HomeViewModel by viewModels()
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LaunchedEffect(Unit) {
-                viewModel.uiEffect.onEach { effect ->
-                    Log.e(TAG, "onCreate: ${effect}", )
-                    when (effect) {
-                        is HomeViewModel.HomeEffect.NavigateToLogin -> {
-                            Log.e(TAG, "logout: activity ", )
-                            startActivity(Intent(this@HomeActivity, AuthenticationActivity::class.java))
-                            finish()
-                        }
-                    }
-                }.collect()
-            }
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                HomeNavHost(){
+                NavHost(){
                     finish()
                 }
 

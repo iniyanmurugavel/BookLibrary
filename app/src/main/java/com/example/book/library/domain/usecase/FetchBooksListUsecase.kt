@@ -1,5 +1,6 @@
-package com.example.book.library.domain
+package com.example.book.library.domain.usecase
 
+import com.example.book.library.domain.IRemoteRepository
 import com.example.book.library.domain.model.BookListDataItem
 import java.util.Calendar
 import javax.inject.Inject

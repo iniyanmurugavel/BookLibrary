@@ -4,14 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.book.library.data.UserEntity
 import com.example.book.library.domain.ILocalRepository
-import com.example.book.library.domain.IRemoteRepository
 import com.example.book.library.domain.model.Country
+import com.example.book.library.domain.usecase.FetchCountriesUsecase
+import com.example.book.library.domain.usecase.FetchDefaultCountryUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -19,8 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val remoteRepository: IRemoteRepository,
     private val localRepository: ILocalRepository,
+    private val fetchCountryUsecase: FetchCountriesUsecase,
+    private val fetchDefaultCountryUsecase: FetchDefaultCountryUsecase
 ) : ViewModel() {
 
     private val _uiState =
@@ -40,8 +40,8 @@ class SignUpViewModel @Inject constructor(
 
     private fun fetchCountries() {
         viewModelScope.launch(Dispatchers.IO) {
-            val countries = async { remoteRepository.fetchCountries() }
-            val defaultCountry = async { remoteRepository.fetchDefaultCountry() }
+            val countries = async { fetchCountryUsecase.invoke() }
+            val defaultCountry = async { fetchDefaultCountryUsecase() }
             val countriesResult = countries.await()
             val defaultCountryResult = defaultCountry.await()
             _uiState.value = _uiState.value.copy(

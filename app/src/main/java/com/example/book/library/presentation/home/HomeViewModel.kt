@@ -8,10 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.book.library.data.UserEntity
-import com.example.book.library.domain.FetchBooksListUsecase
 import com.example.book.library.domain.ILocalRepository
 import com.example.book.library.domain.IRemoteRepository
 import com.example.book.library.domain.model.BookListDataItem
+import com.example.book.library.domain.usecase.FetchBooksListUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -30,7 +30,6 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val localRepository: ILocalRepository,
-    private val iRemoteRepository: IRemoteRepository,
     private val fetchBooksListUsecase: FetchBooksListUsecase
 ) : ViewModel() {
 
@@ -49,7 +48,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun getBookList() {
         _uiState.update { currentState->
             currentState.copy(
@@ -57,7 +55,7 @@ class HomeViewModel @Inject constructor(
                 isLoading = true
             )
         }
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val data = fetchBooksListUsecase.invoke()
             _uiState.update { currentState ->
                 currentState.copy(

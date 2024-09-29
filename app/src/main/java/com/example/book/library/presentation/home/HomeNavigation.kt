@@ -66,9 +66,8 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
 @OptIn(ExperimentalPagerApi::class)
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomeNavHost(onLogoutClick: () -> Unit) {
+fun NavHost(onLogoutClick: () -> Unit) {
 
     val navController = rememberNavController()
 
@@ -84,6 +83,7 @@ fun HomeNavHost(onLogoutClick: () -> Unit) {
             val viewModel = hiltViewModel<HomeViewModel>()
 
             LaunchedEffect(Unit) {
+                viewModel.getBookList()
                 viewModel.uiEffect.onEach { effect ->
                     when (effect) {
                         is HomeViewModel.HomeEffect.NavigateToLogin -> {
@@ -97,12 +97,6 @@ fun HomeNavHost(onLogoutClick: () -> Unit) {
                         }
                     }
                 }.collect()
-            }
-
-            LaunchedEffect(
-                key1 = ""
-            ) {
-                viewModel.getBookList()
             }
             val coroutineScope = rememberCoroutineScope()
 

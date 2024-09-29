@@ -1,5 +1,6 @@
 package com.example.book.library.data.remote
 
+import com.example.book.library.data.dto.DtoMapper.toBookListItemDomain
 import com.example.book.library.data.dto.DtoMapper.toCountryDomain
 import com.example.book.library.data.dto.DtoMapper.toCountryListDomain
 import com.example.book.library.domain.IRemoteRepository
@@ -8,10 +9,10 @@ import com.example.book.library.domain.model.Country
 import com.example.book.library.network.ApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RemoteRepositoryImpl : IRemoteRepository {
+class RemoteRepositoryImpl @Inject constructor(private val service: ApiService) : IRemoteRepository {
 
-    private val service = ApiClient.retrofit
 
     override suspend fun fetchCountries(): List<Country> {
         val response = service.getCountries()
@@ -32,8 +33,11 @@ class RemoteRepositoryImpl : IRemoteRepository {
     }
 
     override suspend fun getBookList(): List<BookListDataItem> {
-        return withContext(Dispatchers.IO){
-            service.getBookList().body().orEmpty()
-        }
+      val response = service.getBookList()
+      return if(response.isSuccessful){
+          response.body()?.toBookListItemDomain().orEmpty()
+      }else{
+          emptyList()
+      }
     }
 }
